@@ -1,10 +1,10 @@
 import React from "react";
-import { Link, Switch, Route, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NewIdeas = () => {
-  let match = useRouteMatch();
   return (
-    <div>
+    <div className="newIdeas">
+      <h1>اختر مسارك</h1>
       <ul>
         <li>
           <Link to={`/category-3/journey`}>رحلة البحث عن فكرة</Link>
