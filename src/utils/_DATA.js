@@ -262,3 +262,23 @@ export const getQuestions = () => {
 
   return questions.slice(0, 10);
 };
+
+export const getCards = () => {
+  let currentIndex = products.length,
+    temporaryValue,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = products[currentIndex];
+    products[currentIndex] = products[randomIndex];
+    products[randomIndex] = temporaryValue;
+  }
+
+  return products.slice(0, 2);
+};

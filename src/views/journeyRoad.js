@@ -85,7 +85,14 @@ class JourneyRoad extends Component {
         </div>
       );
     } else {
-      return <Result ideas={ideas} product={product[0]} />;
+      return (
+        <Result
+          ideas={ideas.reverse()}
+          product={product}
+          title="حصاد الرحلة"
+          path="/journey"
+        />
+      );
     }
   }
 }

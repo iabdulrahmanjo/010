@@ -6,9 +6,11 @@ const Result = (props) => {
   console.log(props);
   return (
     <div className="result">
-      <h1>حصاد الرحلة</h1>
+      <h1>{props.title}</h1>
       <div className="result-card">
-        <Card product={props.product} type="journey" />
+        {props.product.map((p) => (
+          <Card product={p} type="journey" />
+        ))}
       </div>
       <div className="result-ideas">
         {props.ideas.length > 0 ? (
@@ -18,7 +20,7 @@ const Result = (props) => {
         )}
       </div>
       <button
-        onClick={() => props.history.push("/category-3/journey")}
+        onClick={() => props.history.push(`/category-3${props.path}`)}
         className="result-btn"
       >
         البدء من جديد
