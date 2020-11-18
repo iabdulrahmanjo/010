@@ -1,57 +1,54 @@
 import React, { Component } from "react";
+import Button from "../components/button";
 import Card from "../components/card";
+import Nav from "../components/nav";
+import Search from "../components/search";
 import { products } from "../utils/_DATA";
 
 class Journey extends Component {
   state = {
     query: "",
-    search_mode: false,
+    loading: false,
     result: products,
+    filterResult: products,
   };
 
   handleInputChange = (event) => {
     const query = event.target.value;
     if (!query) {
-      this.setState({ query, search_mode: false, result: products });
+      this.setState({ query, filterResult: this.state.result, loading: false });
     } else {
-      this.setState({ query, search_mode: true });
+      this.setState({ query, loading: true });
+      const filteredRes = this.state.result.filter(
+        (product) => product.name.indexOf(query) !== -1
+      );
+      this.setState({ loading: false, filterResult: filteredRes });
     }
   };
 
-  handleSubmit = () => {
-    const q = this.state.query;
-    const p = products.filter((product) => product.name === q);
-    this.setState({ result: p });
-  };
-
   render() {
-    const { result } = this.state;
+    const { loading, filterResult } = this.state;
     return (
-      <div style={{ padding: "3rem 3rem" }}>
-        <div className="search">
-          <input
-            dir="rtl"
-            type="text"
-            className="search_input"
-            placeholder="ابحث عن منتج"
-            onChange={this.handleInputChange}
-          />
-          <button
-            className="search_button"
-            disabled={!this.state.search_mode}
-            onClick={this.handleSubmit}
-          >
-            انطلق
-          </button>
-        </div>
-        <div className="deck">
-          {result.length > 0 ? (
-            result.map((p, index) => <Card key={index} product={p} />)
-          ) : (
-            <p style={{ fontSize: "3rem", marginTop: "8rem" }}>
-              هذا المنتج غير موجود
-            </p>
-          )}
+      <div className="product">
+        <Nav cta={<Button type="back" />} />
+        <div className="wrapper">
+          <div className="product-content">
+            <div className="product-content--header">
+              <h1 className="primary-heading">
+                اختر منتجًا لتطور أفكارًا عليه
+              </h1>
+              <Search handleChange={this.handleInputChange} />
+            </div>
+            <div className="product-content--deck">
+              {loading ? (
+                <p className="info-text">تحميل...</p>
+              ) : filterResult.length > 0 ? (
+                filterResult.map((p, index) => <Card key={index} product={p} />)
+              ) : (
+                <p className="info-text">هذا المنتج غير موجود</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     );

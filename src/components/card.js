@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
+import getIcon from "../utils/images";
 
 const Card = ({ product, type }) => {
   const match = useRouteMatch();
@@ -8,10 +9,7 @@ const Card = ({ product, type }) => {
     return (
       <div className="card card-journey">
         <div className="card-img">
-          <img
-            src={require(`../icons/${product.fileName}.png`)}
-            alt={product.name}
-          />
+          <img src={getIcon(product.fileName)} alt={product.name} />
         </div>
         <div className="card-name">
           <h1>{product.name}</h1>
@@ -22,10 +20,7 @@ const Card = ({ product, type }) => {
   return (
     <Link to={`${match.url}/${product.fileName}`} className="card">
       <div className="card-img">
-        <img
-          src={require(`../icons/${product.fileName}.png`)}
-          alt={product.name}
-        />
+        <img src={getIcon(product.fileName)} alt={product.name} />
       </div>
       <div className="card-name">
         <h1>{product.name}</h1>
