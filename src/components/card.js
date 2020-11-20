@@ -1,31 +1,17 @@
-import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import React, { useContext } from "react";
+import { JourneyContext } from "../context/journeyContext";
 import getIcon from "../utils/images";
 
-const Card = ({ product, type }) => {
-  const match = useRouteMatch();
-
-  if (type === "journey") {
-    return (
-      <div className="card card-journey">
-        <div className="card-img">
-          <img src={getIcon(product.fileName)} alt={product.name} />
-        </div>
-        <div className="card-name">
-          <h1>{product.name}</h1>
-        </div>
-      </div>
-    );
-  }
+const Card = ({ product, iconSize, nameSize, ...props }) => {
   return (
-    <Link to={`${match.url}/${product.fileName}`} className="card">
-      <div className="card-img">
+    <div {...props}>
+      <div className="card-img" style={{ width: `${iconSize}` }}>
         <img src={getIcon(product.fileName)} alt={product.name} />
       </div>
-      <div className="card-name">
+      <div className="card-name" style={{ fontSize: `${nameSize}` }}>
         <h1>{product.name}</h1>
       </div>
-    </Link>
+    </div>
   );
 };
 

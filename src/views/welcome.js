@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import Nav from "../components/nav";
 import DecCard from "../components/decCard";
 import { FcIdea } from "react-icons/fc";
 import { HiLink } from "react-icons/hi";
-const NewIdeas = () => {
+
+const Welcome = () => {
   return (
     <div className="app">
       <Nav />
@@ -40,4 +41,4 @@ const NewIdeas = () => {
   );
 };
 
-export default NewIdeas;
+export default Welcome;
