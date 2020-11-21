@@ -3,6 +3,8 @@ import { JourneyContext } from "../context/journeyContext";
 import Card from "../components/card";
 import Question from "../components/question";
 import AddInput from "../components/addInput";
+import Hint from "../components/hint";
+import IdeaList from "../components/IdeaList";
 
 const ProductQuesstions = (props) => {
   const { data } = useContext(JourneyContext);
@@ -17,12 +19,14 @@ const ProductQuesstions = (props) => {
             className="card"
           />
         </div>
-        <div className="productQuestions-hint">تلميح</div>
+        <div className="productQuestions-right--hint">
+          <Hint />
+        </div>
       </div>
       <div className="productQuestions-left">
         <Question />
         <AddInput />
-        <div>ideas place</div>
+        <IdeaList />
       </div>
     </div>
   );

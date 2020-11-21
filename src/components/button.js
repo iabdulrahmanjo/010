@@ -19,7 +19,7 @@ const CancelBtn = (props) => {
 const NextBtn = (props) => {
   return (
     <button {...props}>
-      <IoIosArrowBack className="btn-icon" />
+      <IoIosArrowBack className="btn-icon btn-icon-next" />
       {props.children}
     </button>
   );
@@ -28,8 +28,8 @@ const NextBtn = (props) => {
 const backBtn = (props) => {
   return (
     <button {...props}>
-      <IoIosArrowForward className="btn-icon" />
       {props.children}
+      <IoIosArrowForward className="btn-icon btn-icon-back" />
     </button>
   );
 };
