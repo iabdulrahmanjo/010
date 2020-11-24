@@ -6,7 +6,11 @@ const ProgressBar = ({ now }) => {
   return (
     <div className="progressBar">
       <div
-        className="progressBar-fill"
+        className={
+          data.questionCounter === 10
+            ? "progressBar-fill green"
+            : "progressBar-fill"
+        }
         style={{ width: `${data.progressPercentage}%` }}
       >
         <span className="progressBar-num">&nbsp;</span>

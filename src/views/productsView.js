@@ -3,6 +3,13 @@ import Search from "../components/search";
 import Card from "../components/card";
 import { products } from "../utils/_DATA";
 import { JourneyContext } from "../context/journeyContext";
+import styled, { keyframes } from "styled-components";
+import fadeIn from "react-animations/lib/fade-in";
+
+const FadeInAnimation = keyframes`${fadeIn}`;
+const FadeIn = styled.div`
+  animation: 0.2s ${FadeInAnimation};
+`;
 
 export default class ProductsView extends Component {
   static contextType = JourneyContext;
@@ -31,32 +38,34 @@ export default class ProductsView extends Component {
     const { loading, filterResult } = this.state;
 
     return (
-      <div>
-        <div className="journey-content--header">
-          <h1 className="primary-heading">اختر منتجًا لتطور أفكارًا عليه</h1>
-          <Search handleChange={this.handleInputChange} />
+      <FadeIn>
+        <div className="journey-content">
+          <div className="journey-content--header">
+            <h1 className="primary-heading">اختر منتجًا لتطور أفكارًا عليه</h1>
+            <Search handleChange={this.handleInputChange} />
+          </div>
+          <div className="journey-content--deck">
+            {loading ? (
+              <p className="info-text">تحميل...</p>
+            ) : filterResult.length > 0 ? (
+              filterResult.map((p, index) => (
+                <Card
+                  onClick={() => this.context.selectProduct(p)}
+                  className={
+                    this.context.data.product === p
+                      ? "card card-selectable select"
+                      : "card card-selectable"
+                  }
+                  key={index}
+                  product={p}
+                />
+              ))
+            ) : (
+              <p className="info-text">هذا المنتج غير موجود</p>
+            )}
+          </div>
         </div>
-        <div className="journey-content--deck">
-          {loading ? (
-            <p className="info-text">تحميل...</p>
-          ) : filterResult.length > 0 ? (
-            filterResult.map((p, index) => (
-              <Card
-                onClick={() => this.context.selectProduct(p)}
-                className={
-                  this.context.data.product === p
-                    ? "card card-selectable select"
-                    : "card card-selectable"
-                }
-                key={index}
-                product={p}
-              />
-            ))
-          ) : (
-            <p className="info-text">هذا المنتج غير موجود</p>
-          )}
-        </div>
-      </div>
+      </FadeIn>
     );
   }
 }

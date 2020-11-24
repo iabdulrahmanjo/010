@@ -263,6 +263,12 @@ export const getQuestions = () => {
   return questions.slice(0, 10);
 };
 
+export const setUpIdeas = (questions) => {
+  let ideasData = {};
+  questions.map((q) => (ideasData[q] = {}));
+  return ideasData;
+};
+
 export const getCards = () => {
   let currentIndex = products.length,
     temporaryValue,

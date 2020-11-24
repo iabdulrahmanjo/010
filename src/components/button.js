@@ -3,12 +3,19 @@ import { useHistory } from "react-router-dom";
 import { BsX } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
+import { JourneyContext } from "../context/journeyContext";
 
 const CancelBtn = (props) => {
   const history = useHistory();
+  const { reset } = React.useContext(JourneyContext);
+
+  const agian = () => {
+    history.goBack();
+    reset();
+  };
   return (
     <div className="CancelBtn">
-      <button className="CancelBtn-btn" onClick={() => history.goBack()}>
+      <button className="CancelBtn-btn" onClick={agian}>
         <BsX className="CancelBtn-icon" />
         {props.children}
       </button>

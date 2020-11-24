@@ -5,7 +5,11 @@ const Question = (props) => {
   const { data } = useContext(JourneyContext);
   return (
     <div className="question">
-      <h1>{data.questions[data.questionCounter]}</h1>
+      <h1>
+        {data.questions[data.questionCounter] === 10
+          ? 9
+          : data.questions[data.questionCounter]}
+      </h1>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getQuestions } from "../utils/_DATA";
+import { getQuestions, setUpIdeas } from "../utils/_DATA";
 
 const JourneyContext = React.createContext();
 
@@ -9,20 +9,42 @@ class JourneyProvider extends Component {
     progressPercentage: 0,
     product: null,
     ideas: {},
+    ideasCount: 0,
     questions: [],
     questionCounter: 0,
-    finished: false,
     inputText: "",
     progressStep: 100 / 11,
   };
 
+  reset = () => {
+    this.setState({
+      phase: "choosing-product",
+      progressPercentage: 0,
+      product: null,
+      ideas: {},
+      ideasCount: 0,
+      questions: [],
+      questionCounter: 0,
+      inputText: "",
+      progressStep: 100 / 11,
+    });
+  };
   ChangeOfPhase = (phase) => {
-    this.setState((state) => ({
-      phase,
-      progressPercentage: state.progressPercentage + state.progressStep,
-      questions: getQuestions(),
-      ideas: { [state.questionCounter]: [] },
-    }));
+    if (phase === "answering-Q") {
+      const questions = getQuestions();
+      this.setState((state) => ({
+        phase,
+        progressPercentage: state.progressPercentage + state.progressStep,
+        questions: questions,
+        ideas: setUpIdeas(questions),
+      }));
+    } else {
+      this.setState({
+        phase,
+        progressPercentage:
+          this.state.progressPercentage + this.state.progressStep,
+      });
+    }
   };
 
   selectProduct = (product) => {
@@ -30,11 +52,18 @@ class JourneyProvider extends Component {
   };
 
   nextQuestion = () => {
-    this.setState((state) => ({
-      questionCounter: state.questionCounter + 1,
-      progressPercentage: state.progressPercentage + state.progressStep,
-      ideas: { ...state.ideas, [state.questionCounter + 1]: [] },
-    }));
+    if (this.state.questionCounter === 9) {
+      this.setState((state) => ({
+        phase: "preparing-result",
+        questionCounter: state.questionCounter + 1,
+        progressPercentage: state.progressPercentage + state.progressStep,
+      }));
+    } else {
+      this.setState((state) => ({
+        questionCounter: state.questionCounter + 1,
+        progressPercentage: state.progressPercentage + state.progressStep,
+      }));
+    }
   };
 
   backQuestion = () => {
@@ -43,7 +72,6 @@ class JourneyProvider extends Component {
       this.setState({
         phase: "choosing-product",
         progressPercentage: 0,
-        questions: [],
       });
     } else {
       this.setState((state) => ({
@@ -57,16 +85,34 @@ class JourneyProvider extends Component {
     this.setState({ inputText: text });
   };
 
-  addIdea = () => {
-    this.setState((state) => ({
+  addIdea = (ideaNumber) => {
+    this.setState(
+      ({ questions, questionCounter, inputText, ideas, ideasCount }) => ({
+        ideas: {
+          ...ideas,
+          [questions[questionCounter]]: {
+            ...ideas[questions[questionCounter]],
+            [ideaNumber]: inputText,
+          },
+        },
+        inputText: "",
+        ideasCount: ideasCount + 1,
+      })
+    );
+  };
+
+  deleteIdea = (ideaId) => {
+    const { ideas, questionCounter, questions } = this.state;
+    const questionIdea = ideas[questions[questionCounter]];
+    delete questionIdea[ideaId];
+    this.setState(({ ideas, questionCounter, questions, ideasCount }) => ({
       ideas: {
-        ...state.ideas,
-        [state.questionCounter]: [
-          ...state.ideas[state.questionCounter],
-          state.inputText,
-        ],
+        ...ideas,
+        [questions[questionCounter]]: {
+          ...questionIdea,
+        },
       },
-      inputText: "",
+      ideasCount: ideasCount - 1,
     }));
   };
 
@@ -81,6 +127,8 @@ class JourneyProvider extends Component {
           backQuestion: this.backQuestion,
           inputChange: this.inputChange,
           addIdea: this.addIdea,
+          deleteIdea: this.deleteIdea,
+          reset: this.reset,
         }}
       >
         {this.props.children}
