@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Nav = ({ cta }) => {
+const Nav = (props) => {
+  console.log(props);
   return (
     <nav className="nav">
       <div className="wrapper">
@@ -12,9 +13,9 @@ const Nav = ({ cta }) => {
             </li>
           </ul>
           <div className="nav-heading">
-            <p className="nav-heading--text">استديو 010</p>
+            <p className="nav-heading--text">استديو زيرو</p>
           </div>
-          {cta ? cta : <div style={{ flex: "1" }}>&nbsp;</div>}
+          {props.children}
         </div>
       </div>
     </nav>

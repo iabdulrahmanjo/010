@@ -13,7 +13,7 @@ const Welcome = () => {
         <div className="app-content">
           <div className="app-content-text">
             <h1 className="app-content-text--1">
-              أهلاً و سهلاً بك في استيديو 010
+              أهلاً و سهلاً بك في استيديو زيرو
             </h1>
             <div className="app-content-text--2">
               <h1>اختر طريقة توليد الأفكار</h1>

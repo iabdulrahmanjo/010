@@ -20,10 +20,13 @@ const Result = (props) => {
         <div className="result-head">
           <div className="result-head-content">
             <h1 className="result-head-heading">حصاد الرحلة</h1>
-            <div className="result-head-action">
-              <Button type="skip" className="footer-btn footer-btn-tritary">
+            <div
+              className="result-head-action"
+              style={{ justifyContent: "flex-end" }}
+            >
+              {/* <Button type="skip" className="footer-btn footer-btn-tritary">
                 أفكاري
-              </Button>
+              </Button> */}
               <Button
                 type="skip"
                 className="footer-btn  green-btn"
@@ -44,7 +47,7 @@ const Result = (props) => {
                 className="card"
               />
             </div>
-            <div className="result-body-right-actions">
+            {/* <div className="result-body-right-actions">
               <Button type="skip" className="footer-btn black-btn">
                 تحميل
               </Button>
@@ -54,7 +57,7 @@ const Result = (props) => {
               >
                 طباعة
               </Button>
-            </div>
+            </div> */}
           </div>
           <div className="result-body-left">
             {Object.keys(data.ideas).map((q, index) => (

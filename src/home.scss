@@ -18,8 +18,7 @@ $success-Dark: #2f925d;
 .home {
   &-header {
     position: relative;
-
-    height: 70vh;
+    height: 100vh;
     background-image: linear-gradient(
       $primary-color-dark,
       $primary-color-light

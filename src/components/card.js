@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { JourneyContext } from "../context/journeyContext";
+import React from "react";
 import getIcon from "../utils/images";
 
 const Card = ({ product, iconSize, nameSize, ...props }) => {

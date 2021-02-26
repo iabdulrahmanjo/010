@@ -6,7 +6,6 @@ import "draft-js/dist/Draft.css";
 
 const Idea = (props) => {
   const { deleteIdea } = useContext(JourneyContext);
-  console.log(props.text);
 
   return (
     <div className="idea">
